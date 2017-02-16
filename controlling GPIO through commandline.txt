@@ -1,0 +1,33 @@
+Elevate your permissions to root user to allow IO access
+
+sudo -i
+
+
+Setup to control pin as output
+Substitute 23 in the following commands for your GPIO number (GPIO, not pin number)
+
+
+echo "23" > /sys/class/gpio/export
+echo "out" > /sys/class/gpio/gpio23/direction
+
+
+Control Output State
+
+echo "1" > /sys/class/gpio/gpio23/value
+echo "0" > /sys/class/gpio/gpio23/value
+Setup to read pin as an input
+
+
+Substitute 23 in the following commands for your GPIO number (GPIO, not pin number)
+
+
+echo "23" > /sys/class/gpio/export
+echo "in" > /sys/class/gpio/gpio23/direction
+
+
+Read its state
+
+cat /sys/class/gpio/gpio23/value
+To Release A Pin Afterwards
+
+echo "23" > /sys/class/gpio/unexport
