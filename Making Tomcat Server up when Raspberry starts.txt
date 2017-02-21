@@ -1,0 +1,5 @@
+- sudo nano /etc/rc.local
+
+add below line before exit(0)
+
+- /home/pi/apache-tomcat-7.0.75/bin/startup.sh
