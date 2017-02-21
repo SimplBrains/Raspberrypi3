@@ -1,0 +1,23 @@
+private final String uRL = "http://192.168.0.102:8080/IamatRest/set/book";
+
+final TextView tx = (TextView) findViewById(R.id.textView);
+                        //tx.setText("I am done");
+                        final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET, uRL,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        tx.setText(response);
+                                        requestQueue.stop();
+
+                                    }
+                                }, new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError){
+                                tx.setText("Something went wrong...");
+                                volleyError.printStackTrace();
+                                requestQueue.stop();
+
+                            }
+                        });
+                        requestQueue.add(stringRequest);
