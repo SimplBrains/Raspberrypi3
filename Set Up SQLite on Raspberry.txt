@@ -1,0 +1,21 @@
+SQLite Installation
+
+-->sqlite3 --command not found which means sqlite is not installed
+-->sudo apt-get install sqlite3  --this will install the software
+
+
+#to quit -> .quit
+#to make a database, first make a directory go into it, open sqlite3 and then issue the command --> .open mydb.db  . This will create new database. We can see it by issuing command --> ls. 
+#We can also create a databasefile with command --> sqlite3 mydb.db --> New file will be created, if exist existing will be picked up.
+#To get help , try --> .help
+# .databases --> This will show list of databases.
+# .tables --> to view tables
+# creating tables
+create table sensor_data(id integer not null primary key autoincrement, name text not null, value text not null);
+#Inserting into table
+insert into sensor_data(name, value) values("voltage", "230");
+#Viewing the data
+select * from sensor_data;
+# .show --> this shows different settings of sqlite
+# to change seperator --> .seperator @
+
