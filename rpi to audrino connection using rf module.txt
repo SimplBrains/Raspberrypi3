@@ -1,0 +1,17 @@
+RPi
+Step 1
+http://www.homautomation.org/2014/03/02/433mhtz-rf-communication-between-arduino-and-raspberry-pi-arduino-as-receiver/
+Step 2
+go to the root folder of your project. do a git submodule init and git submodule update . Run the make again
+
+Arduino
+Step1
+http://www.homautomation.org/2014/03/02/433mhtz-rf-communication-between-arduino-and-raspberry-pi-arduino-as-receiver/
+Step2
+https://github.com/sui77/rc-switch/tree/c5645170be8cb3044f4a8ca8565bfd2d221ba182  --dounload zip
+
+
+
+
+Reverse is also available.
+
