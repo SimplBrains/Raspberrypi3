@@ -40,3 +40,6 @@ mpack -s "Test" /home/pi/some_folder/somefile.ext recipientname@domain.com
 
 
 --http://www.raspberry-projects.com/pi/software_utilities/email/ssmtp-to-send-emails
+
+--Before your Pi can send emails it needs a message transfer agent (MTA). I have to flavours for you. The first one is exim4, the other one is SSMTP. The choice is yours. Needless to say, you will only need one of the two MTAs. 
+--http://www.sbprojects.com/projects/raspberrypi/exim4.php
