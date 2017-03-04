@@ -1,1 +1,5 @@
+--do setup like this
 http://ozzmaker.com/program-avr-using-raspberry-pi-gpio/
+
+--From this website copy hex file
+http://www.ablab.in/led-blinking-with-avr-atmega16-microcontroller/
