@@ -3,3 +3,6 @@ http://ozzmaker.com/program-avr-using-raspberry-pi-gpio/
 
 --From this website copy hex file
 http://www.ablab.in/led-blinking-with-avr-atmega16-microcontroller/
+
+--command for putting code to atmega, included in the first link but recursive use hence writing explicitly 
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:/home/pi/http---www.ablab.in-uploads-files-LED_Blinking_with_ATmega16.hex:i
