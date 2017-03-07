@@ -1,0 +1,21 @@
+1. RASPBERRY PI – Format USB Drive as FAT32 using the command line
+
+sudo bash and press enter
+
+apt-get install dosfstools and press enter
+
+df -h and press enter to identify which drive is your USB drive. In my case my usb drive is /dev/sda1 also listed as /media/usb0
+
+umount /dev/sda1 and press enter to unmount the drive so it can be formatted
+
+sudo mkdosfs -F 32 -I /dev/sda1 and press enter to format the drive
+
+
+2. Make directory to mount this USB
+
+sudo mkdir /media/DISK1
+
+
+3. Mount with Permissions
+
+sudo mount -t vfat /dev/sdf1 /media/usb0 -o rw,users,umask=0
