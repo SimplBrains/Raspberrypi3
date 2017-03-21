@@ -1,0 +1,10 @@
+Steps to Write hex file
+
+1.Open AVR Studio
+2. New Project > AVR GCC > C Executable Project > Select device and click finish. Project is created.
+3. Go to build and hit 'build<project_name>'. Hex file will be created after removing compilation problems.
+4.Copy the hex file to Raspberry and run following command
+sudo avrdude -c linuxgpio -p atmega8 -v -U flash:w:/home/pi/test2.hex:i
+
+This will install the firmware on AVR.
+(For Raspberry set-up, see reference document.)
