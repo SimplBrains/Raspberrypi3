@@ -1,0 +1,14 @@
+sudo nano /boot/config.txt
+
+1.Add these two at the botom of the file :
+enable_uart=1
+dtoverlay=pi3-miniuart-bt
+
+2. reboot
+
+Code to run
+
+https://github.com/oksbwn/ESP8266-Raspberry-Pi
+
+sudo python code.py
+
