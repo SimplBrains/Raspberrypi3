@@ -1,0 +1,12 @@
+Using Arduino IDE to code ESP8266 Module
+
+1. Download and run arduino IDE.
+2. File-> Preferences -> 
+Enter http://arduino.esp8266.com/stable/package_esp8266com_index.json into Additional Board Manager URLs field and click the “OK” button
+3. Open boards manager. Go to Tools > Board > Boards Manager…
+Scroll down, select the ESP8266 board menu and install “esp8266 platform”
+Hit install for latest version.
+4. Choose your ESP8266 board from Tools > Board > Generic ESP8266 Module
+5. Restart the IDE.
+
+**Done**
