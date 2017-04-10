@@ -1,0 +1,7 @@
+writing paho code in java
+
+Setup :
+https://eclipse.org/paho/clients/java/
+
+Code assistance :
+https://gist.github.com/m2mIO-gister/5275324#file-simplemqttclient-java-L1
