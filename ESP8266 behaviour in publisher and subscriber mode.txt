@@ -4,4 +4,9 @@ ESP8266 behaviour in publisher and subscriber mode
 Connect switch between GPIO and +3.3v
 
 2. In subscriber
-Connect switch between GPIO and Ground
+Connect LED between GPIO and Ground
+Command to switch on
+mosquitto_pub -d -u mqtt -P mqtt -t test -m 0
+
+Command to switch off
+mosquitto_pub -d -u mqtt -P mqtt -t test -m 1
