@@ -1,0 +1,7 @@
+ESP8266 behaviour in publisher and subscriber mode
+
+1. In Publisher
+Connect switch between GPIO and +3.3v
+
+2. In subscriber
+Connect switch between GPIO and Ground
