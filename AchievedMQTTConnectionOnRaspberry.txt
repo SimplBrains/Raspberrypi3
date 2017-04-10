@@ -1,0 +1,18 @@
+Achieved mqtt connectivity with ESP8266 on raspberry
+
+1. on ESP8266 install code from here 
+
+http://www.instructables.com/id/How-to-Use-MQTT-With-the-Raspberry-Pi-and-ESP8266/?ALLSTEPS
+
+2. And on raspberry start a subscriber
+mosquitto_sub -d -u mqtt -P mqtt -t test
+
+Andit works !
+
+Setings in ESP8266 Arduino code
+
+const char* mqtt_server = "192.168.0.100";
+const char* mqtt_topic = "test";
+const char* mqtt_username = "mqtt";
+const char* mqtt_password = "mqtt";
+const char* clientID = "esp8266";
