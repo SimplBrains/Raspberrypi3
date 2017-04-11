@@ -1,0 +1,12 @@
+Analysis of ISD1820
+
+-> It is a output device.
+Sound received from mic remains on chip. It can be transferred over to raspberry/arduino, but only in analog form. That means it will be in the form of numbers if received serially.
+To achieve this, put ISD1820 in FT mode and then put speaker output (SP) to serial receiver of arduino(after dumping serial code on Arduino offcourse)
+
+We can control recording(REC), complete playback(P-E), and playback till you provide high(P-L) through program. 
+
+Uses-
+1. Any alarm system
+2. Greeting card wish
+etc
