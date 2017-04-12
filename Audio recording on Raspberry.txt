@@ -2,9 +2,16 @@ Audio recording on Raspberry
 
 1. Connect USB to 3.5mm and connect a microphone on it.
 
-2. sudo nano~/.asoundrc
+2. sudo nano /usr/share/alsa/alsa.conf
 
-create if not already
+--change below values from 0 to 1
+
+defaults.ctl.card 1
+defaults.pcm.card 1
+
+3. sudo nano ~/.asoundrc
+
+--create if not already
 
 pcm.!default {
     type hw
@@ -18,7 +25,7 @@ ctl.!default {
 
 Source : http://raspberrypi.stackexchange.com/questions/37177/best-way-to-setup-usb-mic-as-system-default-on-raspbian-jessie
 
-3. Recording
+4. Recording
 arecord /home/pi/Desktop/a.wav -D sysdefault:CARD=1
 
 Payback
