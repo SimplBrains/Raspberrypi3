@@ -1,0 +1,27 @@
+Audio recording on Raspberry
+
+1. Connect USB to 3.5mm and connect a microphone on it.
+
+2. sudo nano~/.asoundrc
+
+create if not already
+
+pcm.!default {
+    type hw
+    card 1
+}
+
+ctl.!default {
+    type hw
+    card 1
+}
+
+Source : http://raspberrypi.stackexchange.com/questions/37177/best-way-to-setup-usb-mic-as-system-default-on-raspbian-jessie
+
+3. Recording
+arecord /home/pi/Desktop/a.wav -D sysdefault:CARD=1
+
+Payback
+omxplayer -p -o hdmi /home/pi/Desktop/a.wav
+
+Source : http://www.instructables.com/id/How-to-Record-Voice-With-USB-Microphone-Then-Play-/
