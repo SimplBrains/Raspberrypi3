@@ -1,0 +1,6 @@
+Sources for Speech/Voice recognition :
+Youtube
+https://www.youtube.com/watch?v=R8vsXKFTee0&t=59s
+
+Local:
+L:\A Kumar Abhishek\Softwares-Specialized\Speech Recognition Implemented Java
