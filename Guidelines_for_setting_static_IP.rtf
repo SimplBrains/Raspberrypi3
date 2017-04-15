@@ -1,0 +1,198 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2509;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang9\f0\fs22 Guidelines for setting static IP :\par
+{\field{\*\fldinst{HYPERLINK "https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address"}}{\fldrslt{\ul\cf1 https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address}}}\f0\fs22\par
+\par
+The Raspbian released in May 2015 changed the way networking (and particularly WiFi) works.\par
+\par
+This applies to the current Foundation releases of Raspbian Jessie and the last Raspbian Wheezy 2015-05-05 (no longer available).\par
+\par
+This makes all the existing tutorials obsolete. (Note the tutorials can still be used if you want to use the older style of manual configuration, but you need to disable dhcpcd.)\par
+\par
+sudo systemctl stop dhcpcd.service will stop (deactivate) dhcpcd.\par
+\par
+The newer configuration (based on dhcpcd) has many advantages (and a few minor drawbacks) and is recommended for new users.\par
+\par
+How to setup Raspbian Networking\par
+\par
+If you are using an Ethernet connection with a router there should be no configuration required and it should work out of the box.\par
+\par
+NOTE The Pi3 inbuilt WiFi does not support 5GHz networks, and may not connect to Ch 12,13 on 2.4GHz networks.\par
+If you are using WiFi and the GUI set up by following the Foundation Guidelines\par
+\par
+If you are using WiFi from the Command Line set up by following the Foundation Guidelines This is the only way to set up a network which does not broadcast SSID.\par
+\par
+This can also be used to setup a 'Headless' system e.g. using a serial console cable, but it MUCH easier if you can borrow a monitor and keyboard for setup. See below for another possible method using an Ethernet cable to a PC.\par
+\par
+SSH\par
+\par
+As of the November 2016 release, Raspbian has the SSH server disabled by default. You will have to enable it manually.\par
+Enter sudo raspi-config in the terminal, first select advanced options, then navigate to ssh, press  Enter and select Enable or disable ssh server.\par
+\par
+For headless setup, SSH can be enabled by placing a file named 'ssh', without any extension, onto the boot partition of the SD card.\par
+\par
+Networking Files\par
+\par
+If you are running a recent Raspbian /etc/network/interfaces should be as below. If you have changed it PUT IT BACK.\par
+\par
+# interfaces(5) file used by ifup(8) and ifdown(8)\par
+\par
+# Please note that this file is written to be used with dhcpcd\par
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'\par
+\par
+# Include files from /etc/network/interfaces.d:\par
+source-directory /etc/network/interfaces.d\par
+\par
+auto lo\par
+iface lo inet loopback\par
+\par
+iface eth0 inet manual\par
+\par
+allow-hotplug wlan0\par
+iface wlan0 inet manual\par
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf\par
+\par
+allow-hotplug wlan1\par
+iface wlan1 inet manual\par
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf\par
+If the Foundation had setup dhcpcd as the author intended /etc/network/interfaces would not be needed. The 10-wpa_supplicant hook automatically launches WPA supplicant on wireless interfaces and can be installed if desired.\par
+\par
+The file /etc/wpa_supplicant/wpa_supplicant.conf will be created/modified by the recommended setup methods, but can be setup by hand. It should contain something like the following:-\par
+\par
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\par
+update_config=1\par
+\par
+network=\{\par
+    ssid="ESSID"\par
+    psk="Your_wifi_password"\par
+\}\par
+If you need to connect to a private network (i.e. no broadcast SSID) include the line scan_ssid=1 inside network=\{\u8943?\}.\par
+\par
+NOTE If you want to connect to different networks (e.g. at work or home) you can include multiple network=\{\u8943?\} entries.\par
+There are many other options which can be used see man wpa_supplicant.conf.\par
+\par
+Setup a Static IP Address\par
+\par
+Questions about setting Static IP Address are among the most common on this site. There are very many tutorials (many wrong, obsolete or incomplete).\par
+\par
+Disclaimer\par
+\par
+Before proceeding I feel obliged to state that setting up a static address is NOT recommended. Telecommunications Engineers do not do this. Static IP Addresses can be the bane of a Network Administrator's life. There are situations where Static IP Addresses are necessary e.g. if you are running a DHCP server, or running on an isolated network with no DHCP server.\par
+If you are determined to proceed anyway you should make sure you get it right. Adapted from Foundation Network Tutorial\par
+\par
+Find the Settings of your local Network\par
+\par
+This is most easily done with the Pi itself, using DHCP, but can be done on any computer on your network, although the commands may differ on other systems.\par
+\par
+Run either of the following (depending on whether you are using Ethernet or WiFi):\par
+\par
+ip -4 addr show dev eth0 | grep inet\par
+ip -4 addr show dev wlan0 | grep inet\par
+which should give an output like:\par
+\par
+inet 10.1.1.30/24 brd 10.1.1.255 scope global eth0\par
+inet 10.1.1.31/24 brd 10.1.1.255 scope global wlan0\par
+The first address is the IP address of your Pi on the network, and the part after the slash is the network size. It is highly likely that yours will be a /24.\par
+\par
+The second address is the brd (broadcast) address of the network.\par
+\par
+Find the address of your router (or gateway)\par
+\par
+ip route | grep default | awk '\{print $3\}'\par
+\par
+10.1.1.1\par
+Finally note down the address of your DNS server, which is often the same as your gateway.\par
+\par
+cat /etc/resolv.conf\par
+\par
+# Generated by resolvconf\par
+nameserver 10.1.1.1\par
+Then follow ONE of the following options. (There are other methods not documented here. These are the most common on Raspbian.)\par
+\par
+Network Interfaces method\par
+\par
+Configure a static network adddress on your Pi in /etc/network/interfaces\par
+\par
+auto eth0\par
+iface eth0 inet static\par
+        address 10.1.1.30\par
+        netmask 255.255.255.0\par
+        gateway 10.1.1.1\par
+\par
+allow-hotplug wlan0\par
+iface wlan0 inet static\par
+        address 10.1.1.31\par
+        netmask 255.255.255.0\par
+        gateway 10.1.1.1\par
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf\par
+address is the address from the command above (or another unused address on the same network),\par
+netmask 255.255.255.0 corresponds to network size/24.\par
+gateway is the address of your router (or gateway).\par
+\par
+You can also specify dns-nameservers, but this is generally not necessary.\par
+The broadcast is automatically derived from address and netmask and need not be specified.\par
+For more detail see {\field{\*\fldinst{HYPERLINK "https://wiki.debian.org/NetworkConfiguration"}}{\fldrslt{\ul\cf1 https://wiki.debian.org/NetworkConfiguration}}}\f0\fs22\par
+\par
+You can set either or both eth0 or wlan0\par
+\par
+Then disable the DHCP client daemon and switch to standard Debian networking:\par
+\par
+sudo systemctl disable dhcpcd\par
+sudo systemctl enable networking\par
+Reboot for the changes to take effect:\par
+\par
+sudo reboot\par
+dhcpcd method\par
+\par
+Leave /etc/network/interfaces at its default (as above).\par
+\par
+Edit /etc/dhcpcd.conf as follows:-\par
+\par
+ Here is an example which configures a static address, routes and dns.\par
+       interface eth0\par
+       static ip_address=10.1.1.30/24\par
+       static routers=10.1.1.1\par
+       static domain_name_servers=10.1.1.1\par
+\par
+       interface wlan0\par
+       static ip_address=10.1.1.31/24\par
+       static routers=10.1.1.1\par
+       static domain_name_servers=10.1.1.1\par
+ip_address is the address and size from the command above (or another unused address on the same network),\par
+routers is the address of your router (or gateway).\par
+domain_name_servers is the DNS address(es) from /etc/resolv.conf.\par
+(see man dhcpcd.conf)\par
+\par
+There is a good article on dhcpcd at {\field{\*\fldinst{HYPERLINK "https://wiki.archlinux.org/index.php/dhcpcd"}}{\fldrslt{\ul\cf1 https://wiki.archlinux.org/index.php/dhcpcd}}}\f0\fs22  The Fallback profile is an alternative to static IP\par
+\par
+Connecting a Computer to the Pi\par
+\par
+Recent versions of Raspbian (which use dhcpcd) allow ssh to work over a link-local address and avahi (which is a zeroconf implementation) enables programs to discover hosts running on a local network.\par
+\par
+This means you can plug the Pi into a Computer (with an Ethernet cable) or a local network router and connect without knowing the IP address.\par
+\par
+You can easily connect from Linux and OS X with ssh pi@hostname.local (the default hostname is raspberrypi) This should work with popular GUI ssh programs. This is sometimes problematic with some versions of Windows and networks which use .local in a non-standard way. (See {\field{\*\fldinst{HYPERLINK "https://en.wikipedia.org/wiki/.local"}}{\fldrslt{\ul\cf1 https://en.wikipedia.org/wiki/.local}}}\f0\fs22 )\par
+\par
+NOTE .local resolution does not always work e.g. in rsync. The following should resolve IP (and can be included in bash scripts)\par
+RemotePi=$(getent hosts hostname.local | awk '\{ print $1 \}')\par
+\par
+If you have multiple Pi you need to make sure each Pi has a unique hostname.\par
+\par
+You can use a crossover cable, but you don't need one (most modern interfaces automatically detect).\par
+\par
+One drawback of direct connection is that the Pi will have no Internet access and the date will not be set. You can copy the date from the host by running ssh pi@hostname.local sudo date -s$(date -Ins) before connection.\par
+\par
+Scope:\par
+\par
+This tutorial is about setting up a normal Raspbian installation to access the internet using the included software. It also covers connections to other computers on the same network.\par
+\par
+It is primarily aimed at helping new users struggling to get their Pi (especially WiFi) working .\par
+\par
+It does NOT cover:-\par
+\par
+Other Network Managers.\par
+Running advanced networking on the Pi (e.g. DHCP servers, Tunnelling, VPN, Access Point).\par
+Use of ipv6 (although if you have an ipv6 network this should work).\par
+Alternate networking setups. (There are many different ways of setting up networking.)\par
+}
+ 
