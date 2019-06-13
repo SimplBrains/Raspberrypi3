@@ -1,0 +1,26 @@
+1. Download raspbian from website
+- It will be a zip file. When extracted, it only gives a .img file.
+2. Download Balena Etcher from the website. 
+- It is open source and used to deploy bootable .img to memory card.
+3. Download SD card formatter
+- Format it everytime.
+4. Open Etcher software from step 2 and link image from step 2. Put it to memory card in Step3.
+5. After Etcher software completes, go to the root folder of SD card and create below two files :
+(a)File Name : ssh
+No Content in file : 
+(b)File Name : wpa_supplicant.conf
+File content :
+country=ie
+update_config=1
+ctrl_interface=/var/run/wpa_supplicant
+
+network={
+scan_ssid=1
+ssid="FREE WiFi"
+psk="Pakistan786"
+}
+6. Then connect Raspberry to power and let green led glow, it takes some 5 minutes.
+7. Download Angry IP Scanner and scan IP - Hostname "raspberry.local" and MAC Vendor "Raspberry Pi Foundation" is visible. Write down the IP.
+8. Open Putty and pass on the IP in step 7 and port 22. Use username as "pi" and password as "raspberry".
+
+You are logged in the server now.
