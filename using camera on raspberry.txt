@@ -1,0 +1,4 @@
+1. Enable camera from raspi-config
+2. Hit these commands to get video or still
+raspivid -o movie.h264 -t 5000
+raspistill -o image.jpg
