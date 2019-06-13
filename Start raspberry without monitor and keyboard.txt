@@ -24,3 +24,5 @@ psk="Pakistan786"
 8. Open Putty and pass on the IP in step 7 and port 22. Use username as "pi" and password as "raspberry".
 
 You are logged in the server now.
+
+Information from : https://www.youtube.com/watch?v=gOLnIrqmPQc
