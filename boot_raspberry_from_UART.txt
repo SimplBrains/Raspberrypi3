@@ -1,0 +1,35 @@
+Arduino Code
+
+***************************************************************
+
+void setup(){
+Serial.begin(115200);
+Serial1.begin(115200);
+}
+
+void loop(){
+byte b;
+if(Serial1.available() > 0){
+b=Serial1.read();
+Serial.write(b);
+}
+if(Serial.available() > 0){
+b=Serial1.read();
+Serial.write(b);
+}
+}
+
+*****************************************************************
+
+then go to raspbian sd card and open config.txt and write below to the end of the file.
+
+*****************************************************************
+enable_uart=1
+*****************************************************************
+
+Hardware
+connect Tx-Rx and Rx-Tx of each other and GND-GND
+
+We are all set to boot Raspberry
+
+Youtube video : https://www.youtube.com/watch?v=ZRKBlGvsxMw
