@@ -31,5 +31,6 @@ Hardware
 connect Tx-Rx and Rx-Tx of each other and GND-GND
 
 We are all set to boot Raspberry
+open putty in serial mode with COM5 and 115200 and enjoy the magic.
 
 Youtube video : https://www.youtube.com/watch?v=ZRKBlGvsxMw
